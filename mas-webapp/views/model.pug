@@ -1,0 +1,161 @@
+extends layout
+
+block content
+  h1 Model Details for Model : #{modelDetail.modelId}
+  h2 Statistical Values
+  div(class="table-wrapper")
+    div(class="table-scroll")
+      table(class="table is-striped")
+        thead
+          tr
+            th="ID"
+            th
+              abbr(title="BG Pvalue")="BG"
+            th
+              abbr(title="WhiteSkedacity Pvalue")="WS"
+            th
+              abbr(title="RSquared")="RSq"
+            th
+              abbr(title="Shapiro-Wilk")="SW"
+            th
+              abbr(title="BreuschPagan")="BP"
+            th="RMSE"
+            th="MAE"
+            th="MAPE"
+            th="AIC"
+        tfoot
+          each run in modelDetail.detail
+            tr
+              th=run.id
+              td=run.BGPVal
+              td=run.WhiteSkedacityPval
+              td=run.RSquared
+              td=run.ShapiroWilk
+              td=run.BreuschPagan
+              td=run.RMSE
+              td=run.MAE
+              td=run.MAPE
+              td=run.AIC
+
+
+  div(class="control")
+  h2 Backtesting MAPE
+  div(class="table-wrapper")
+    div(class="table-scroll")
+      table(class="table is-striped")
+        thead
+          th="ID"
+          th
+            abbr(title="Dynamic Backtest Range 1 MAPE")=range.DynamicBacktestRange1
+          th
+            abbr(title="Dynamic Backtest Range 2 MAPE")=range.DynamicBacktestRange2
+          th
+            abbr(title="Dynamic Backtest Range 3 MAPE")=range.DynamicBacktestRange3
+          th
+            abbr(title="Dynamic Backtest Range 4 MAPE")=range.DynamicBacktestRange4
+          th
+            abbr(title="Dynamic Backtest Range 5 MAPE")=range.DynamicBacktestRange5
+          th
+            abbr(title="Dynamic Backtest Range 6 MAPE")=range.DynamicBacktestRange6
+          th
+            abbr(title="Dynamic Backtest Range 7 MAPE")=range.DynamicBacktestRange7
+          th
+            abbr(title="Dynamic Backtest Range 8 MAPE")=range.DynamicBacktestRange8
+          th
+            abbr(title="Dynamic Backtest Range 9 MAPE")=range.DynamicBacktestRange9
+          th
+            abbr(title="Dynamic Backtest Range 10 MAPE")=range.DynamicBacktestRange10
+        tfoot
+          each run in modelDetail.detail
+            tr
+              th=run.id
+              td=run.DynamicBacktestRange1MAPE
+              td=run.DynamicBacktestRange2MAPE
+              td=run.DynamicBacktestRange3MAPE
+              td=run.DynamicBacktestRange4MAPE
+              td=run.DynamicBacktestRange5MAPE
+              td=run.DynamicBacktestRange6MAPE
+              td=run.DynamicBacktestRange7MAPE
+              td=run.DynamicBacktestRange8MAPE
+              td=run.DynamicBacktestRange9MAPE
+              td=run.DynamicBacktestRange10MAPE
+
+  section(class="section")
+    div(class="container")
+      div(class="card is-fullwidth")
+        header(class="card-header")
+          p(class="card-header-title") Independent Variable Results
+          a(class="card-header-icon card-toggle")
+            i(class="fa fa-angle-down")
+        div(class="card-content is-hidden")
+          div(class="content")
+            table(class="table is-striped")
+              thead
+                tr
+                  th='id'
+                  th='Name'
+                  th='Coeff'
+                  th='Pvalue'
+                  th='Transformation'
+                  th='UnitRoot'
+              tfoot
+                each run in indDetail.detail
+                  tr
+                    td=run.id
+                    td=run.Name
+                    td=run.Coefficient
+                    td=run.Pval
+                    td=run.Transformations
+                    td=run.UnitRoot
+  section(class="section")
+    div(class="container")
+      div(class="card is-fullwidth")
+        header(class="card-header")
+          p(class="card-header-title") PACF Plots
+          a(class="card-header-icon card-toggle")
+            i(class="fa fa-angle-down")
+        div(class="card-content is-hidden")
+          div(class="content")
+              img(src="data:image/png;base64," + plot)
+
+
+  section(class="section")
+    div(class="container")
+      each type in graphs
+        div(class="card is-fullwidth")
+          header(class="card-header")
+            p(class="card-header-title")=type.type
+            a(class="card-header-icon card-toggle")
+              i(class="fa fa-angle-down")
+          div(class="card-content is-hidden")
+            div(class="content")
+              if type.values.length > 1
+                div(class="chart-sets")
+                  div(class="chart-set")
+                    div(class="field is-grouped is-grouped-centered")
+                      div(class="control")
+                        div(class="select")
+                          select(name="graph-select-" + type.id + "-a" id="graph-select-" + type.id + "-a")
+                            each graph in type.values
+                              option(value=graph.id)=graph.Name
+                    div(id="graph-" + type.id + "-a")
+                  div(class="chart-set")
+                    div(class="field is-grouped is-grouped-centered")
+                      div(class="control")
+                        div(class="select")
+                          select(name="graph-select-" + type.id + "-b" id="graph-select-" + type.id + "-b")
+                            each graph in type.values
+                              option(value=graph.id)=graph.Name
+                    div(id="graph-" + type.id + "-b")
+              else
+                div(class="chart-sets")
+                  div(class="chart-set")
+                    div(class="field")
+                      div(class="control")
+                        p=type.values[0].Name
+                    div(id="graph-" + type.id + "-a")
+      script var graphs = !{JSON.stringify(graphs)}
+      script(src="https://d3js.org/d3.v5.min.js")
+      script(src="/javascripts/linechart.js")
+      script(src="/javascripts/splitlinechart.js")
+      script(src="/javascripts/charts.js")

@@ -1,0 +1,96 @@
+extends layout
+
+block content
+  h1 Short list
+  h2 Statistical Values
+  table(class="table is-striped")
+    thead
+      tr
+        th="ID"
+        th
+          abbr(title="BG Pvalue")="BG"
+        th
+          abbr(title="WhiteSkedacity Pvalue")="WS"
+        th
+          abbr(title="VIF Pval")="VIF"
+        th
+          abbr(title="ADFResidual")="ADFRes"
+        th
+          abbr(title="RSquared")="RSq"
+        th="RMSE"
+        th="MAE"
+        th="MAPE"
+        th="AIC"
+    tfoot
+      each run in modelDetail.detail
+        tr
+          th=run.id
+          td=run.BGPVal
+          td=run.WhiteSkedacityPval
+          td=run.VIFPval
+          td=run.ADFResidual
+          td=run.RSquared
+          td=run.RMSE
+          td=run.MAE
+          td=run.MAPE
+          td=run.AIC
+          
+  div(class="control")
+  h2 Backtesting
+  table(class="table is-striped")
+    thead
+      th="ID"
+      th
+        abbr(title="Dynamic Backtest Range 1 MAPE")="Range 1"
+      th
+        abbr(title="Dynamic Backtest Range 2 MAPE")="Range 2"
+      th
+        abbr(title="Dynamic Backtest Range 3 MAPE")="Range 3"
+      th
+        abbr(title="Dynamic Backtest Range 4 MAPE")="Range 4"
+      th
+        abbr(title="Dynamic Backtest Range 5 MAPE")="Range 5"
+      th
+        abbr(title="Dynamic Backtest Range 6 MAPE")="Range 6"
+      th
+        abbr(title="Dynamic Backtest Range 7 MAPE")="Range 7"
+      th
+        abbr(title="Dynamic Backtest Range 8 MAPE")="Range 8"
+      th
+        abbr(title="Dynamic Backtest Range 9 MAPE")="Range 9"
+      th
+        abbr(title="Dynamic Backtest Range 10 MAPE")="Range 10"
+      th="Details"
+    tfoot
+      each run in modelDetail.detail
+        tr
+          th=run.id
+          td=run.DynamicBacktestRange1MAPE
+          td=run.DynamicBacktestRange2MAPE
+          td=run.DynamicBacktestRange3MAPE
+          td=run.DynamicBacktestRange4MAPE
+          td=run.DynamicBacktestRange5MAPE
+          td=run.DynamicBacktestRange6MAPE
+          td=run.DynamicBacktestRange7MAPE
+          td=run.DynamicBacktestRange8MAPE
+          td=run.DynamicBacktestRange9MAPE
+          td=run.DynamicBacktestRange10MAPE
+      
+  section(class="section")
+    div(class="container")
+      div(class="card is-fullwidth")
+        header(class="card-header")
+          p(class="card-header-title") Short List Result Graphs
+          a(class="card-header-icon card-toggle")
+            i(class="fa fa-angle-down")
+        div(class="card-content is-hidden")
+          div(class="content") Graph goes in here
+  div(class="another graph")
+    div(class="container")  
+      div(class="card is-fullwidth")
+        header(class="card-header")
+          p(class="card-header-title") GRAPH TITLES
+          a(class="card-header-icon card-toggle")
+            i(class="fa fa-angle-down")
+        div(class="card-content is-hidden")
+          div(class="content") Graph goes in here

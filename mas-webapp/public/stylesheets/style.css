@@ -1,0 +1,92 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+.main {
+  margin-top: 2em;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.table {
+  overflow: auto;
+}
+.tooltip {
+  background-color: white;
+  border: 1px solid lightgray;
+}
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+.hover-line {
+  stroke: gray;
+  stroke-width: 1px;
+  stroke-dasharray: 3,3;
+}
+.overlay {
+  fill: none;
+  pointer-events: all;
+}
+
+.datepicker-dropdown {
+  background-color: white;
+  border: 1px solid #ababab;
+}
+
+.axis text {
+  fill: gray;
+}
+
+.axis path {
+  stroke: gray;
+}
+
+.tick line {
+  stroke: gray
+}
+
+.tick text {
+  fill: gray
+}
+
+.chart-set .svg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.table-wrapper {
+  position: relative;
+}
+.table-scroll {
+  overflow: auto;
+  margin-top: 20px;
+}
+.table-wrapper table {
+  width: 100%;
+
+}
+
+.datetimepicker-clear-button {
+  display: none;
+}
+
+@media only screen and (max-width: 750px) {
+  .chart-sets {
+    display: block;
+  }
+
+}
+
+@media only screen and (min-width: 750px) {
+  .chart-sets {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+}

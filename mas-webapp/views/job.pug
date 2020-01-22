@@ -1,0 +1,207 @@
+extends layout
+
+block content
+	if job.hasShortlist
+		h1="Short List Models"
+		div(class="table-wrapper")
+			div(class="table-scroll")
+				table(class="table is-striped")
+					thead
+						tr
+							th="Model Id"
+							th="Model Name"
+							th
+								abbr(title="BG Pvalue")="BG"
+							th
+								abbr(title="WhiteSkedacity Pvalue")="WS"
+							th
+								abbr(title="RSquared")="RSq"
+							th
+								abbr(title="Shapiro-Wilk")="SW"
+							th
+								abbr(title="BreuschPagan")="BP"
+							th="RMSE"
+							th="MAE"
+							th="MAPE"
+							th="AIC"
+							th
+								abbr(title="Dynamic Backtest Range 1 MAPE")="BT 1"
+							th
+								abbr(title="Dynamic Backtest Range 2 MAPE")="BT 2"
+							th
+								abbr(title="Dynamic Backtest Range 3 MAPE")="BT 3"
+							th
+								abbr(title="Dynamic Backtest Range 4 MAPE")="BT 4"
+							th
+								abbr(title="Dynamic Backtest Range 5 MAPE")="BT 5"
+							th
+								abbr(title="Dynamic Backtest Range 6 MAPE")="BT 6"
+							th
+								abbr(title="Dynamic Backtest Range 7 MAPE")="BT 7"
+							th
+								abbr(title="Dynamic Backtest Range 8 MAPE")="BT 8"
+							th
+								abbr(title="Dynamic Backtest Range 9 MAPE")="BT 9"
+							th
+								abbr(title="Dynamic Backtest Range 10 MAPE")="BT 10"
+							th="Details"
+					tfoot
+						each run in job.shortlist
+							tr
+								td=run.ModelId
+								td=run.Name
+								td=run.BGPVal
+								td=run.WhiteSkedacityPval
+								td=run.RSquared
+								td=run.ShapiroWilk
+								td=run.BreuschPagan
+								td=run.RMSE
+								td=run.MAE
+								td=run.MAPE
+								td=run.AIC
+								td=run.DynamicBacktestRange1MAPE
+								td=run.DynamicBacktestRange2MAPE
+								td=run.DynamicBacktestRange3MAPE
+								td=run.DynamicBacktestRange4MAPE
+								td=run.DynamicBacktestRange5MAPE
+								td=run.DynamicBacktestRange6MAPE
+								td=run.DynamicBacktestRange7MAPE
+								td=run.DynamicBacktestRange8MAPE
+								td=run.DynamicBacktestRange9MAPE
+								td=run.DynamicBacktestRange10MAPE
+								td
+									a(class="button is-primary" href=run.href)="Details"
+
+		h1="Rejected Models"
+		div(class="table-wrapper")
+			div(class="table-scroll")
+				table(class="table is-striped")
+					thead
+						tr
+							th="Model Id"
+							th="Model Name"
+							th
+								abbr(title="BG Pvalue")="BG"
+							th
+								abbr(title="WhiteSkedacity Pvalue")="WS"
+							th
+								abbr(title="RSquared")="RSq"
+							th
+								abbr(title="Shapiro-Wilk")="SW"
+							th
+								abbr(title="BreuschPagan")="BP"
+							th="RMSE"
+							th="MAE"
+							th="MAPE"
+							th="AIC"
+							th="Reject Reason"
+					tfoot
+						each run in job.rejected
+							tr
+								td=run.ModelId
+								td=run.Name
+								td=run.BGPVal
+								td=run.WhiteSkedacityPval
+								td=run.RSquared
+								td=run.ShapiroWilk
+								td=run.BreuschPagan
+								td=run.RMSE
+								td=run.MAE
+								td=run.MAPE
+								td=run.AIC
+								td=run.AcceptRejectReason
+	else
+		form(action="/shortlists" id="shorlist_form" method="POST")
+			h1="Candidate Models"
+			p="Pick which models to keep."
+				div(class="table-wrapper")
+					div(class="table-scroll")
+						table(class="table is-striped")
+							thead
+								tr
+									th
+									th="Model Id"
+									th="Model Name"
+									th
+										abbr(title="BG Pvalue")="BG"
+									th
+										abbr(title="WhiteSkedacity Pvalue")="WS"
+									th
+										abbr(title="RSquared")="RSq"
+									th
+										abbr(title="Shapiro-Wilk")="SW"
+									th
+										abbr(title="BreuschPagan")="BP"	
+									th="RMSE"
+									th="MAE"
+									th="MAPE"
+									th="AIC"
+									th="Reason"
+									th="Details"
+									th
+									button(type="button" onClick="selectAll()" class="button is-link is-left")="Select All Candidates"
+							tfoot
+								each run in job.accepted
+									tr
+										td
+											input(type="checkbox" class="candidate" name="model" + run.ModelId value="true")
+										th=run.ModelId
+										td=run.Name
+										td=run.BGPVal
+										td=run.WhiteSkedacityPval
+										td=run.RSquared
+										td=run.ShapiroWilk
+										td=run.BreuschPagan
+										td=run.RMSE
+										td=run.MAE
+										td=run.MAPE
+										td=run.AIC
+										td=run.AcceptRejectReason
+										td
+											if run.AcceptReject === true
+												a(class="button is-primary" href=run.href)="Details"
+					h3="Models which failed Statistical Tests"
+					div(class="table-wrapper")
+						div(class="table-scroll")
+							table(class="table is-striped")
+								thead
+									tr
+										th
+										th="Model Id"
+										th="Model Name"
+										th
+											abbr(title="BG Pvalue")="BG"
+										th
+											abbr(title="WhiteSkedacity Pvalue")="WS"
+										th
+											abbr(title="RSquared")="RSq"
+										th
+											abbr(title="Shapiro-Wilk")="SW"
+										th
+											abbr(title="BreuschPagan")="BP"
+										th="RMSE"
+										th="MAE"
+										th="MAPE"
+										th="AIC"
+										th="Reason"
+								tfoot
+								each run in job.rejected
+									tr
+										td
+											input(type="checkbox" name="model" + run.ModelId value="true")
+										th=run.ModelId
+										td=run.Name
+										td=run.BGPVal
+										td=run.WhiteSkedacityPval
+										td=run.RSquared
+										td=run.ShapiroWilk
+										td=run.BreuschPagan
+										td=run.RMSE
+										td=run.MAE
+										td=run.MAPE
+										td=run.AIC
+										td=run.AcceptRejectReason
+				input(type="hidden" name="runId" value=job.id)
+				div(class="field")
+					div(class="control")
+						button(class="button is-link")="Keep These!"

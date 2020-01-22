@@ -1,0 +1,287 @@
+extends layout
+
+block content
+	h1="Upload a File"
+	form(action="/jobs" enctype="multipart/form-data" method="POST" id="user-input-form")
+		div(class="column is-half is-offset-one-quarter")
+			div(class="file is-centered is-boxed has-name")
+				label(class="file-label")
+					input(class="file-input" type="file" name="file")
+					span(class="file-cta")
+						span(class="file-icon")
+							i(class="fas fa-upload")
+						span(class="file-label")="Choose a file…"
+					span(class="file-name")="No file selected"
+			p(class="is-clearfix")
+
+
+			div(class="field is-grouped")
+				div(class="control")
+					label(class="label")="Select a Model"
+				div(class="control")
+					div(class="select is-medium")
+						select(name="model")
+							option(value="ARDL")="ARDL"
+							option(value="OneVar")="1 Factor Regression"
+							//option(value="2factor")="2 Factor Regression"
+
+			p(class="is-clearfix")
+
+			//-User ID
+			div(class="field")
+				div(class="control-label")
+					label(class="label")="User ID"
+				div(class="control")
+					input(class="input" type="text" value="2" name="UserId")
+
+			//-Stat tests to be performed
+			div(class="control-label")
+				label(class="label")="Stats Tests to be performed"
+			br
+			div(class="control")
+				table
+					tr
+						td
+							input(type="checkbox" name="stats_test[]" value="Breusch Godfrey Autocorrelation Test" checked)
+						td="Breusch Godfrey Autocorrelation Test"
+						td
+							input(type="checkbox" name="stats_test[]" value="Breusch Pagan Heteroskedasticity Test" checked)
+						td="Breusch Pagan Heteroskedasticity Test"
+					tr
+						td
+							input(type="checkbox" name="stats_test[]" value="White Heteroskedasticity Test" checked)
+						td="White Heteroskedasticity Test"
+						td
+							input(type="checkbox" name="stats_test[]" value="Shapiro Wilk Residual Normality Test" checked)
+						td="Shapiro Wilk Residual Normality Test"
+					tr
+						td
+							input(type="checkbox" name="stats_test[]" value="Augmented Dickey Fuller Residual Stationarity Test" checked)
+						td=" Augmented Dickey Fuller Residual Stationarity Test"
+						td
+							input(type="checkbox" name="stats_test[]" value="Parameter Significance Test" checked)
+						td="Parameter Significance Test"
+			
+			//-Worksheet Name
+			
+			div(class="field is-grouped")
+				div(class="field-label is-normal")
+					label(class="label")="Worksheet Name"
+				div(class="control")
+					input(class="input" type="text" value="Modeling" name="sheetname")
+				div(class="field-label is-normal")
+					label(class="label")="Dependent Variable Column"
+				div(class="control")
+					input(class="input" type="text" value="Equity" name="dependentCol")
+
+			//-Sheet names
+			div(class="field is-grouped")
+				div(class="field-label is-normal")
+					label(class="label")="Base worksheet"
+				div(class="control")
+					input(class="input" type="text" value="D19 Base" name="shtb")
+				div(class="field-label is-normal")
+					label(class="label")="Adverse worksheet"
+				div(class="control")
+					input(class="input" type="text" value="D19 Adverse" name="shta")
+			div(class="field is-grouped")
+				div(class="field-label is-normal")
+					label(class="label")="Severe worksheet"
+				div(class="control")
+					input(class="input" type="text" value="D19 Severe" name="shts")
+				div(class="field-label is-normal")
+					label(class="label")="Result worksheet"
+				div(class="control")
+					input(class="input" type="text" value="D19 Result" name="shtc")
+
+			//-RQ??
+			div(class="field")
+				div(class="control-label")
+					label(class="label")="RQ"
+				div(class="control")
+					input(class="input" type="date" value="2015-12-31" name="rq")
+
+			//-forecasting
+			div(class="field is-grouped")
+				div(class="field-label is-normal")
+					label(class="label")="Forecasting Q1"
+				div(class="control")
+					input(class="input" type="date" value="2019-06-30" name="pq0")
+				div(class="field-label is-normal")
+					label(class="label")="Forecasting Q2"
+				div(class="control")
+					input(class="input" type="date" value="2019-09-30" name="pq1")
+
+			//-start date, end date
+			div(class="field is-grouped")
+				div(class="field-label is-normal")
+					label(class="label")="Start Date"
+				div(class="control")
+					input(class="input" type="date" value="2006-03-31" name="start")
+				div(class="field-label is-normal")
+					label(class="label")="End Date"
+				div(class="control")
+					input(class="input" type="date" value="2018-03-31" name="end")
+
+			//-EXCLUSIONS
+			div(class="field")
+				div(class="control")
+					label(class="label")="Exclusions"
+				div(name="exclusions" id="addExcl")
+					div(class="control input-group form-group date has-icons-right datepicker")
+						input(type="text" class="input form-control" name="exclusions" value="2006-09-30" required)
+						span(class="icon is-small is-right input-group-addon")
+							i(class="fas fa-calendar")
+							span(class="count")
+					div(class="control input-group form-group date has-icons-right datepicker")
+						input(type="text" class="input form-control" name="exclusions" value="2006-12-31" required)
+						span(class="icon is-small is-right input-group-addon")
+							i(class="fas fa-calendar")
+							span(class="count")
+					div(class="control input-group form-group date has-icons-right datepicker")
+						input(type="text" class="input form-control" name="exclusions" value="2007-12-31" required)
+						span(class="icon is-small is-right input-group-addon")
+							i(class="fas fa-calendar")
+							span(class="count")
+					div(class="control input-group form-group date has-icons-right datepicker")
+						input(type="text" class="input form-control" name="exclusions" value="2009-12-31" required)
+						span(class="icon is-small is-right input-group-addon")
+							i(class="fas fa-calendar")
+							span(class="count")
+				div(class="field is-grouped")
+					div(class="control")
+						button(type="button" onClick="addExclusions()" class="button is-link is-left")="Add Exclusion Date"
+					div(class="control")
+						button(type="button" onClick="deleteExclusion()" class="button is-link is-left") Remove Exclusion
+
+
+
+			//-DW Limit Low High
+			div(class="field is-grouped")
+				div(class="field-label is-normal")
+					label(class="label")="DW Limit Low"
+				div(class="control")
+					input(class="input" type="text" value="30" name="DWLimitLow")
+				div(class="field-label is-normal")
+					label(class="label")="DW Limit High"
+				div(class="control")
+					input(class="input" type="text" value="20" name="DWLimitHigh")
+
+			//-BG Limit, White Skedasticity
+			div(class="field is-grouped")
+				div(class="field-label is-normal")
+					label(class="label")="BG Limit"
+				div(class="control")
+					input(class="input" type="text" value="2" name="BGLimit")
+				div(class="field-label is-normal")
+					label(class="label")="White Skedasticity Limit"
+				div(class="control")
+					input(class="input" type="text" value="2" name="WhiteSkedasticityLimit")
+
+			//-VIF Limit, ADF Limit
+			div(class="field is-grouped")
+				div(class="field-label is-normal")
+					label(class="label")="VIF Limit"
+				div(class="control")
+					input(class="input" type="text" value="4" name="VIFLimit")
+				div(class="field-label is-normal")
+					label(class="label")="ADF Limit"
+				div(class="control")
+					input(class="input" type="text" value="5" name="ADFLimit")
+
+			//-ALPHA VALUES
+			div(class="field is-grouped")
+				div(class="field-label is-normal")
+					label(class="label")="ADF Alpha"
+				div(class="control")
+					input(class="input" type="text" value="0.05" name="adf_alpha")
+				div(class="field-label is-normal")
+					label(class="label")="Parameter Alpha"
+				div(class="control")
+					input(class="input" type="text" value="0.10" name="param_alpha")
+
+			div(class="field is-grouped")
+				div(class="field-label is-normal")
+					label(class="label")="BG Alpha"
+				div(class="control")
+					input(class="input" type="text" value="0.05" name="bg_alpha")
+				div(class="field-label is-normal")
+					label(class="label")="White Skedasticity Alpha"
+				div(class="control")
+					input(class="input" type="text" value="0.05" name="white_alpha")
+
+
+
+			div(class="field is-grouped")
+				div(class="field-label is-normal")
+					label(class="label")="SW Alpha"
+				div(class="control")
+					input(class="input" type="text" value="0.05" name="sw_alpha")
+				div(class="field-label is-normal")
+					label(class="label")="BP Alpha"
+				div(class="control")
+					input(class="input" type="text" value="0.05" name="bp_alpha")
+
+			//-SHORT LIST
+			div(class="field")
+				div(class="control-label")
+					label(class="label")="Short List"
+				div(class="control" name="shortlist" id="shortlist")
+					input(class="input short_list" type="text" value="Real GDP" name="short_list")
+					input(class="input short_list" type="text" value="Total Retail Sales" name="short_list")
+				div(class="field is-grouped")
+					div(class="control")
+						button(type="button" onClick="addShortList()" class="button is-link is-left") Add Short List
+					div(class="control")
+						button(type="button" onClick="deleteShortList()" class="button is-link is-left") Remove Short List
+
+
+			//-Dynamic BacktestRange 1- 10
+			div(class="field")
+				div(class="control-label")
+					label(class="label")="Backtest Dates"
+				div(class="control" name="backdates" id="backdates")
+					input(class="input backtest_dates" type="date" value="2006-06-30" name="backtest_dates")
+					input(class="input backtest_dates" type="date" value="2007-12-31" name="backtest_dates")
+					input(class="input backtest_dates" type="date" value="2008-03-31" name="backtest_dates")
+					input(class="input backtest_dates" type="date" value="2008-06-30" name="backtest_dates")
+					input(class="input backtest_dates" type="date" value="2009-03-31" name="backtest_dates")
+					input(class="input backtest_dates" type="date" value="2009-06-30" name="backtest_dates")
+					input(class="input backtest_dates" type="date" value="2010-06-30" name="backtest_dates")
+					input(class="input backtest_dates" type="date" value="2012-03-31" name="backtest_dates")
+					input(class="input backtest_dates" type="date" value="2014-03-31" name="backtest_dates")
+					input(class="input backtest_dates" type="date" value="2016-03-31" name="backtest_dates")
+				div(class="field is-grouped")
+					div(class="control")
+						button(type="button" onClick="addBackDate()" class="button is-link is-left") Add Backtest Dates
+					div(class="control")
+						button(type="button" onClick="deleteBackDate()" class="button is-link is-left") Remove Backtest Dates
+
+			div(class="field")
+				div(class="control-label")
+					label(class="label")="Backtest Long Dates"
+				div(class="control" id="backdateLong")
+					input(class="input backtest_long_dates" type="date" value="2007-12-31" name="backtest_long_dates")
+					input(class="input backtest_long_dates" type="date" value="2008-03-31" name="backtest_long_dates")
+					input(class="input backtest_long_dates" type="date" value="2008-06-30" name="backtest_long_dates")
+					input(class="input backtest_long_dates" type="date" value="2011-03-31" name="backtest_long_dates")
+					input(class="input backtest_long_dates" type="date" value="2015-03-31" name="backtest_long_dates")
+				div(class="field is-grouped")
+					div(class="control")
+						button(type="button" onClick="addBackDateLong()" class="button is-link is-left") Add Backtest Long Dates
+					div(class="control")
+						button(type="button" onClick="deleteBackDateLong()" class="button is-link is-left") Remove Backtest Long Dates
+
+			div(class="field is-grouped")
+				div(class="field-label is-normal")
+					label(class="label")="Bottom Val"
+				div(class="control")
+					input(class="input" type="text" value="50000" name="bottom")
+				div(class="field-label is-normal")
+					label(class="label")="Top Val"
+				div(class="control")
+					input(class="input" type="text" value="250000" name="top")
+
+			div(class="field")
+				div(class="control")
+					button(class="button is-primary is-large is-fullwidth" type='submit')="Submit"

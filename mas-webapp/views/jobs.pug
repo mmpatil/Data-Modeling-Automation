@@ -1,0 +1,64 @@
+extends layout
+
+block content
+	h1="Pending Jobs"
+	div(class="table-wrapper")
+		div(class="table-scroll")
+			table(class="table")
+				thead
+					tr
+						th="Job Id"
+						th="Model Type"
+						th="Start"
+						th="End"
+						th="Status"
+				tfoot
+					each job in jobs.pending
+						tr
+							th=job.id
+							td=job.ModelType
+							td=job.StartDate
+							td=job.EndDate
+							td=job.Status
+
+	h1="Completed Jobs"
+	div(class="table-wrapper")
+		div(class="table-scroll")
+			table(class="table")
+				thead
+					tr
+						th="Job Id"
+						th="Model Type"
+						th="Start"
+						th="End"
+						th="Status"
+						th="Job Details"
+				tfoot
+					each job in jobs.successful
+						tr
+							th=job.id
+							td=job.ModelType
+							td=job.StartDate
+							td=job.EndDate
+							td=job.Status
+							td
+								div(class="field")
+									div(class="control")
+										a(class="button is-link" href=job.href)="Details"
+	h1="Failed Jobs"
+	div(class="table-wrapper")
+		div(class="table-scroll")
+			table(class="table")
+				thead
+					tr
+						th="Job Id"
+						th="Start"
+						th="End"
+						th="Status"
+				tfoot
+					each job in jobs.failed
+						tr
+							th=job.id
+							td=job.StartDate
+							td=job.EndDate
+							td=job.Status

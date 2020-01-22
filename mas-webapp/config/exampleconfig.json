@@ -1,0 +1,26 @@
+{
+  "development": {
+    "username": "username",
+    "password": "very secure pw",
+    "database": "mas_development",
+    "host": "127.0.0.1",
+    "dialect": "mssql",
+    "operatorsAliases": false
+  },
+  "test": {
+    "username": "username",
+    "password": "very secure pw",
+    "database": "mas_test",
+    "host": "127.0.0.1",
+    "dialect": "mssql",
+    "operatorsAliases": false
+  },
+  "production": {
+    "username": "username",
+    "password": "very secure pw",
+    "database": "mas_production",
+    "host": "127.0.0.1",
+    "dialect": "mssql",
+    "operatorsAliases": false
+  }
+}
